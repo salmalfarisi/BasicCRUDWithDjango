@@ -25,7 +25,8 @@
 		</div>
 		&nbsp;
 		<div class="col-sm-12">
-			<!-- form start -->
+	    <!-- form start -->
+	    <!-- load form and prepare to delete data -->
             <form action="/deletedata/{{ deletedata.id }}" class="form-horizontal" method="POST" novalidate>			
 			{% csrf_token %}
 				<div class="h3 text-center">
