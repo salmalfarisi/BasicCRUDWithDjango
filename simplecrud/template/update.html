@@ -37,6 +37,7 @@
 		{% endif %}
 		<div class="col-sm-12">
             <!-- form start -->
+	    <!-- load form and get data from database -->
             <form action="/updatedata/{{ getdata.id }}" class="form-horizontal" method="POST" novalidate>			
 			
 			{% csrf_token %}
