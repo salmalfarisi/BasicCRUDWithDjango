@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Create New data</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<style>
+		.footerbyw3schools
+		{
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			background-color: blue;
+			color: white;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="h1">
+			<center>Create New data</center>
+		</div>
+		&nbsp;
+		
+		{{ create.non_field_errors }}
+		<div class="col-sm-12">
+            <!-- form start -->
+            <form action="/createdata" class="form-horizontal" method="POST" novalidate>			
+			
+			{% csrf_token %}
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-sm-2">
+							<label for="{{ create.field.id_for_label }}" class="control-label">Title : </label>
+						</div>
+						<div class="col-sm-6">
+							{{ create.title }} {{create.title.errors}}
+							<small>*max. input : 30 characters</small>
+						</div>
+					</div>
+				</div>
+				&nbsp;
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-sm-2">
+							<label for="{{ create.desc.id_for_label }}">Description : </label>
+						</div>
+						<div class="col-sm-6">
+							{{ create.desc }} {{create.desc.errors}}
+							<small>*max. input : 100 characters</small>
+						</div>
+					</div>
+				</div>
+			<!--<table border="0">
+				{{ createForm }}
+			</table>-->
+			
+				<div class="text-right">
+					<button type="submit" class="btn btn-primary ">Insert Data</button>
+					<a href="{% url 'readdata' %}" class="btn btn-danger pull-right">Cancel</a>
+				</div>
+            </form>
+		</div>
+	</div>
+	<div class="footerbyw3schools">
+		<div class="h4">Made by salmalfarisi at 31-10-2019</div>
+	</div>
+</body>
+</html>

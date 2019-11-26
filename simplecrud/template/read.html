@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Simple CRUD with Django 2.0</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" href="C:/xampp/htdocs/djangos/operasicrud/assets/bootstrap/dist/css/bootstrap.min.css"> -->
+	<style>
+		.footerbyw3schools
+		{
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			background-color: blue;
+			color: white;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="h1">
+			<center>Basic CRUD with Django</center>
+		</div>
+		&nbsp;
+		<div class="text-right">
+			<a href="{% url 'createdata' %}" class="btn btn-primary">Add New Data</a>
+		</div>
+		&nbsp;
+		<div class="col-sm-12 table-responsive">
+			<table class="table table-hover">
+			  <thead>
+				<tr class="bg-info">
+				  <th scope="col-sm-2"><center>ID</center></th>
+				  <th scope="col-sm-3"><center>Title</center></th>
+				  <th scope="col-sm-5"><center>Description</center></th>
+				  <th scope="col-sm-2"><center>Created At</center></th>
+				  <th scope="col-sm-2"><center>Option</center></th>
+				</tr>
+			  </thead>
+			  <tbody>
+				{% for data in readalldata %}
+				<tr>
+				  <th><center>{{ forloop.counter }}</center></th>
+				  <td><center>{{ data.title }}</center></td>
+				  <td><center>{{ data.desc }}</center></td>
+				  <td><center>{{ data.created_at }}</center></td>
+				  <td>
+					<center>
+						<a href="{% url 'updatedata' data.id %}" class="btn btn-warning btn-sm">Edit</a>
+						<a href="{% url 'deletedata' data.id %}" class="btn btn-danger btn-sm">Delete</a>
+					</center>
+				  </td>
+				</tr>
+				{% endfor %}
+			  </tbody>
+			</table>
+		</div>
+	</div>
+	<div class="footerbyw3schools">
+		<div class="h4">Made by salmalfarisi at 31-10-2019</div>
+	</div>
+</body>
+</html>
