@@ -11,63 +11,50 @@ from django.contrib import messages
 
 #Read data from database
 def readdata(request):
+	#read all data from database
 	data = describe.objects.all()
 	return render(request, 'read.html', {'readalldata':data})
 
 #create new data into database
-def createdata(request):	
+def createdata(request):
+	#when user create new data
 	if request.method == 'POST':
-		insertdata = FormData(request.POST)
-		if insertdata.is_valid():				
-			now = datetime.datetime.now()
-			savedata = describe()
-			savedata.title = insertdata.cleaned_data['title']
-			savedata.desc = insertdata.cleaned_data['desc']
-			savedata.created_at = now
-			savedata.updated_at = now
-			savedata.save()
+		#process : 
+		#1. initialize form to save new data into database
+		if insertdata.is_valid():			
+			#2. save data into database and return to read.html
 			return redirect('readdata')
 		else:
+			#3. when data can't save into database
 			return redirect('createdata')
+		#end process
 	else:
-		insertdata = FormData()
-		#view for create html
+		#load view for create data
 		return render(request, 'create.html', {'create':insertdata})
 
 #update data that choose by user
 def updatedata(request, id):
 	if request.method == 'POST':
-		getdata = describe.objects.get(id=id)
-		updateData = HiddenForm(request.POST, instance=getdata)
+		#process : 
+		# find id to set id and prepare update data into database
 		if updateData.is_valid():			
-			now = datetime.datetime.now()
-			updateData.title = updateData.cleaned_data['title']
-			updateData.desc = updateData.cleaned_data['desc']
-			updateData.updated_at = now
-			updateData.save()
+			#update data into database and return to read.html
 			return redirect('readdata')
 		else:
-			getdata = describe.objects.get(id=id)
-			messages.add_message(request, messages.ERROR, 'Error While Update Data')
-			updatedata = HiddenForm(instance=getdata)
-			showpage = updatedata
-			#view for edit data html
+			#return into update.html
 			return render(request, 'update.html', {'updatedata':showpage, 'getdata':getdata})
+		#end process
 	else:
-		getdata = describe.objects.get(id=id)
-	
-		updatedata = HiddenForm(instance=getdata)
-		showpage = updatedata
-		#view for edit data html
+		#find id to get data from database
+		#load view for edit data
 		return render(request, 'update.html', {'updatedata':showpage, 'getdata':getdata})
 	
 #delete data that choose by user
 def deletedata(request, id):
-	deletedata = describe.objects.get(id=id)
-	
+	#find id from database
 	if request.method == 'POST':
-		deletedata.delete()
+		#delete data and return into read.html
 		return redirect('readdata')
 	
-	#view for delete html
+	#load view for delete data
 	return render(request, 'delete.html', {'deletedata':deletedata})
